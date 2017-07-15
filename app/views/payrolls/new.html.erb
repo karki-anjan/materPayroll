@@ -1,0 +1,21 @@
+<%= form_for(@payroll, url: payrolls_path, class: "form") do |f| %>
+	<div><%= @payroll.errors.full_messages.join(", ") %></div>
+	<div  class="col col-md-12 "style="text-align: center; margin: 0px auto;">
+		<h4>Payroll cut-off</h4>
+		
+		<div class="col col-md-6" style="width: 100%">
+		  	<%= f.label "From:" %>
+		  	<br>
+			<%= date_select :payroll, :start_period, :order => [:day, :month, :year] %>
+		</div>
+
+		<div class="col col-md-6" style="width: 100%; margin-top:20px; ">
+			<%= f.label "To:" %>
+			<br>
+			<%= date_select :payroll, :end_period, :order => [:day, :month, :year] %>
+		</div>
+		<%= f.submit "Save changes", class: "btn btn-success", id: "btnsave" %>
+	</div>	
+<% end %>
+
+  

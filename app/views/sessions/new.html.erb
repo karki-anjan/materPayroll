@@ -1,0 +1,24 @@
+<% provide(:title, "Log in") %>
+<body style="background-image: url(/assets/background2.jpg) !important;>
+<style type="text/css">
+
+  
+<div id="login">
+  <%= form_for(:session, url: login_path) do |f| %>
+    <div class="field" style="text-align: center;">
+     
+      <%= f.text_field :username, placeholder:"Place your username Here", id:"infield", class:"efield" %>
+    </div>
+
+    <div class="field" style="text-align:center;">
+      
+      <%= f.password_field :password, placeholder:" Password Here" ,id:"infield"%>
+    </div>
+    <br>
+
+    <div class="actions" style="">
+      <%= f.submit "Log in",class:"loginbutton"%>
+    </div>
+  <% end %>
+</div>
+</body>

@@ -1,0 +1,31 @@
+<li id="dope_adjustment-<%= dope_adjustment.id %>">
+  
+  <span class="user"><%= link_to dope_adjustment.user.name, dope_adjustment.user %></span>
+  <span class="description"><h4>Description:</h4><%= dope_adjustment.description %></span>
+  <span class="amount"><h4>Amount:</h4>₱<%= dope_adjustment.amount %></span>
+
+
+    <% if current_user?(dope_adjustment.user) || logged_in? && current_user.admin? %>
+     <br>
+      <%= link_to "Add", new_user_dope_adjustment_path(id: dope_adjustment.id,dope_adjustment: dope_adjustment), data: { confirm: "Add new +Adjustment?" } %>
+
+       <% if logged_in? && current_user.admin? %>
+        |
+        <%= link_to "Edit", edit_user_dope_adjustment_path(id: dope_adjustment.id, dope_adjustment: dope_adjustment), data: { confirm: "Edit Adjustments?" } %>
+        | 
+        <%= link_to "Delete", user_dope_adjustment_path(id: dope_adjustment.id, dope_adjustment: dope_adjustment), method: :delete,
+                                      data: { confirm: "Delete Adjustments" } %>
+       <% end %>
+
+    <% end %>
+
+  <span class="timestamp">
+    Posted  <%= time_ago_in_words(dope_adjustment.created_at) %> ago.
+
+
+  </span>
+  
+
+
+
+</li>

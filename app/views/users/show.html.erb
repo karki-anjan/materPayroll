@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body background="/assets/profileimgbg.jpg">
+    <% provide(:title, @user.username) %>
+<div style="margin: 0px auto; text-align: center;">    
+<div class="row">
+
+    <section class="user_info">
+        <%= image_tag @user.profileimg_url, size:100, class: 'proimg' %>
+        
+        <div class="profile">
+        <%= @user.name %></br>
+        <%= @user.position%>
+        </div>
+        <br/><br/>
+
+      
+    </section>
+
+  
+  <table class="user_data">
+   <tr>
+     <td> <b>Date Hired:</b>  </td>
+     <td> <%= @user.date_hired %> [<%= @hired_status %> Months ago] </td>
+   </tr>
+
+   <tr>
+     <td> <b>status:</b>  </td>
+     <td> <%= @user.status %> </td>
+   </tr>
+
+   <tr>
+     <td> <b>Job: </b>  </td>
+     <td> <%= @user.job %> </td>
+   </tr>
+
+   <tr>
+      <td> <b>Date of Birth:</b>  </td>
+      <td> <%=  @user.birthday %></td>
+   </tr>
+
+   <tr>
+      <td> <b>Address:</b>  </td>
+      <td> <%=  @user.address %></td>
+   </tr>
+
+   <tr>
+      <td> <b>Contact Number:</b>  </td>
+      <td> <%=  @user.contact_no %></td>
+   </tr>
+
+   
+
+    <tr>
+      <td> <b>Bank / Account Number:</b>  </td>
+      <td> [<%= @user.bank %>]&nbsp;<%= @user.account_no %></td>
+   </tr>
+
+   
+
+   <tr>
+      <td> <b>Base Salary:</b>  </td>
+      <td> <b><%= number_to_currency @user.base_salary, unit: "NPR " %></b></td>
+   </tr>
+
+   
+
+
+  </table>
+<div style="text-align: center;">
+  <h2 style="font-size: 20px"> <%= link_to "Edit Employee Data", edit_user_path(@user.id) %></h2>
+
+  <h2 style="font-size: 20px"> Check employee payslips:
+    <% @user.payslips.each do |payslip| %>
+    </br></br>
+    <%= link_to "Payslip No: #{payslip.id}", user_payslip_path(@user.id, payslip.id) %>
+    <% end %>
+  </h2>
+</div> 
+</div>
+
+</body>
+</html>

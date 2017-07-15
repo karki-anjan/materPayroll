@@ -1,0 +1,31 @@
+<li id="allowance-<%= allowance.id %>">
+  
+  <span class="user"><%= link_to allowance.user.name, allowance.user %></span>
+  <span class="description"><h4>Description:</h4><%= allowance.description %></span>
+  <span class="amount"><h4>Amount:</h4>₱<%= allowance.amount %></span>
+
+
+    <% if current_user?(allowance.user) || logged_in? && current_user.admin? %>
+     <br>
+      <%= link_to "Add", new_user_allowance_path(id: allowance.id,allowance: allowance), data: { confirm: "Add new allowance?" } %>
+
+       <% if logged_in? && current_user.admin? %>
+        |
+        <%= link_to "Edit", edit_user_allowance_path(id: allowance.id, allowance: allowance), data: { confirm: "Edit allowance?" } %>
+        | 
+        <%= link_to "Delete", user_allowance_path(id: allowance.id, allowance: allowance), method: :delete,
+                                      data: { confirm: "Delete allowance?" } %>
+       <% end %>
+
+    <% end %>
+
+  <span class="timestamp">
+    Posted  <%= time_ago_in_words(allowance.created_at) %> ago.
+
+
+  </span>
+  
+
+
+
+</li>

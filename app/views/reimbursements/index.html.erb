@@ -1,0 +1,34 @@
+<% provide(:title, @user.username) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= image_tag @user.profileimg_url, size:100, class: 'proimg' %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+
+
+
+    <div class="col-md-8">
+            
+
+            <h1 style="margin-top: 45px;"> Reimbursements </h1>
+            <h3><%= link_to "+Add new reimbursement?", new_user_reimbursement_path %></h3>
+            <% if @user.reimbursements.any? || @user.admin? %>
+            
+            <ol class="reimbursements">
+            <%= render @reimbursements %>
+            </ol>
+            <%= will_paginate @reimbursements %>
+            <% else %>
+            
+            
+            <% end %>
+
+    </div>
+
+    
+</div>
+

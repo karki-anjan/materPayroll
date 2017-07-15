@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: one
+  payroll: one
+  base_salary: 9.99
+  sss: 9.99
+  pagibig: 9.99
+  philhealth: 9.99
+
+two:
+  employee: two
+  payroll: two
+  base_salary: 9.99
+  sss: 9.99
+  pagibig: 9.99
+  philhealth: 9.99

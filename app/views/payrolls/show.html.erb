@@ -1,0 +1,122 @@
+
+<h1>Payroll</h1>
+
+<table style="width:100%" >
+  <caption>Period: <%= @payroll.start_period %> to <%= @payroll.end_period %></caption>
+
+
+
+<div class="search_bar">
+<%= form_tag(payroll_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, nil, placeholder: "Search Employees <Enter Name>" %>
+<%= submit_tag "Search" %>
+<% end %>
+</div>
+
+
+
+  <div>
+            <%= link_to "Pay all?", 
+            toggle_pay_all_user_payslip_path(@payroll.id), 
+            :method => :toggle_pay_all, data: { confirm: "Pay all?" }, class: "btn btn-primary btn-block" %>
+
+            <%= link_to "Unpay all?", 
+            toggle_unpay_all_user_payslip_path(@payroll.id), 
+            :method => :toggle_unpay_all, data: { confirm: "Unpay all?" }, class: "btn btn-primary btn-block" %>
+  </div>
+
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Employees</th>
+      <th>Account Number</th> 
+      <th>Bank</th>
+      <th>Base Salary</th>
+      <th>Deductions</th>
+      <th>Allowances, Reimbursements, Adjustments</th>
+      <th>Final</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payslips.each do |payslip| %>
+      <tr>
+        <td><%= link_to "View  Payslip", user_payslip_path(payslip.employee.id, payslip.id) %></td>
+        <td><%= payslip.employee.name %></td>
+        <td><%= payslip.employee.account_no %></td>
+        <td><%= payslip.employee.bank %></td>
+
+        <td><%= number_to_currency payslip.base_salary, unit: "PHP " %>
+
+        <br/>Less Adjustments: <br/>
+        <% payslip.monthly_less_adjustments.each do |nope_adjustment| %>
+         <%= number_to_currency nope_adjustment, unit: "PHP " %>, 
+        <% end %>
+
+        <br/>Total Less Adjustments: <%= number_to_currency payslip.monthly_total_less_adjustments, unit: "PHP " %><br/>
+
+
+        <br/>Sum:&nbsp;<%= number_to_currency payslip.monthly_total_deductions, unit: "PHP " %>
+
+
+        </td>
+
+
+
+        <td id="deductions">
+
+        <br/>Allowances: <br/>
+        <% payslip.monthly_allowances.each do |allowance| %>
+         <%= number_to_currency allowance, unit: "PHP " %>, 
+        <% end %>
+
+        <br/>Total Allowances: <%= number_to_currency payslip.monthly_total_allowances, unit: "PHP " %><br/>
+
+        <br/>Reimbursements: <br/>
+        <% payslip.monthly_reimbursements.each do |reimbursement| %>
+         <%= number_to_currency reimbursement, unit: "PHP " %>, 
+        <% end %>
+
+        <br/>Total Reimbursements: <%= number_to_currency payslip.monthly_total_reimbursements, unit: "PHP " %><br/>
+
+        <br/>Plus Adjustments: <br/>
+        <% payslip.monthly_plus_adjustments.each do |dope_adjustment| %>
+         <%= number_to_currency dope_adjustment, unit: "PHP " %>, 
+        <% end %>
+
+        <br/>Total Plus Adjustments: <%= number_to_currency payslip.monthly_total_plus_adjustments, unit: "PHP " %><br/>
+
+
+
+        <br/>Sum:&nbsp;<%= number_to_currency payslip.monthly_total_ARA, unit: "PHP " %>
+
+
+        </td>
+        <td> <%= number_to_currency payslip.monthly_final_pay, unit: "PHP " %> </td>
+        
+        
+        <td>
+        &nbsp;&nbsp;Paid?&nbsp;&nbsp;
+        </td>
+
+        <td>
+
+        <% if !payslip.paid %>
+          &nbsp;<%= link_to "Unpaid", toggle_paid_user_payslip_path(user_id: payslip.employee.id, id: payslip.id, payroll_id: @payroll.id), :method => :toggle_paid, data: { confirm: "Paid?" } %>&nbsp;
+        <% else %>
+          &nbsp;<%= link_to "Paid", toggle_paid_user_payslip_path(user_id: payslip.employee.id, id: payslip.id, payroll_id: @payroll.id), :method => :toggle_paid, data: { confirm: "Paid?" } %>&nbsp;
+        <% end %>
+        </td>
+
+
+
+ 
+     
+      </tr>
+    <% end %>
+
+
+    
+  </tbody>
+</table>
+

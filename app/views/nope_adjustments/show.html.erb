@@ -1,0 +1,28 @@
+<% provide(:title, @user.username) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= image_tag @user.profileimg_url, size:100, class: 'proimg' %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+
+
+
+    <div class="col-md-8">
+    
+            <% if @user.nope_adjustments.any? %>
+            <h1> +Adjustments </h1>
+            <ol class="nope_adjustments">
+            <%= render @nope_adjustments %>
+            </ol>
+            <% end %>
+            
+
+    </div>
+
+    
+</div>
+

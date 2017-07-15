@@ -1,0 +1,21 @@
+<h1>Payslips</h1>
+
+<div class="Employee_name">
+<h3>Employee_name</h3>
+</div>
+<div class="Employee_name">
+      <%=  @user.name %><br/>
+      <% if  @user.no_of_dependents = 0 %>
+      <%=  @user.status %>, No Dependents 
+      <% else %>
+      <%=  @user.no_of_dependents %>, dependent(s)
+      <% end %>
+</div>
+
+
+<h3> Check payslips:
+<% @user.payslips.each do |payslip| %>
+</br></br>
+<%= link_to "Payslip No: #{payslip.id}", user_payslip_path(@user.id, payslip.id) %>
+<% end %>
+</h3>

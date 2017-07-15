@@ -1,0 +1,220 @@
+<div style="margin: 0px auto; text-align: center;">
+  <h1>Payslips No. <%= @payslips.id %></h1>
+  <div class="Employee_data"> <%= @payslips.employee.name %> </div>
+</div>  
+
+  <div style="font-size: 15px; margin: 0px auto; text-align: center;">
+
+    
+      <div class="Employee_name">
+      <% if @payslips.employee.no_of_dependents = 0 %>
+      <%= @payslips.employee.status %>, No Dependents 
+      <% else %>
+      <%= @payslips.employee.no_of_dependents %>, dependent(s)
+      <% end %>
+      </div>
+      
+      <table class="table_payslip" >
+       <thead>
+         <tr>
+           <th>Payslip period</th>
+           <th>&nbsp;</th>
+           <th>&nbsp;</th>
+           <th><%= @payslips.payroll.start_period %> to <%= @payslips.payroll.end_period %></th>
+         </tr>
+
+         <tr>
+           <th>Base Salary</th>
+           <th>&nbsp;</th>
+           <th><%= number_to_currency payslip.base_salary, unit: "NPR. " %></th>
+           <th>&nbsp;</th>
+         </tr>
+
+         
+         <tr>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+         </tr>
+
+         <tr >
+           <th>Allowances</th>
+           <% @payslips.employee.allowances.each do |allowance| %> 
+            <% if @payslips.employee.allowances.count > 1 %>
+             <tr>
+             <th>Description: </th>
+             <th><%= allowance.description %> <br/></th>
+             <th><%= number_to_currency allowance.amount, unit: "NPR. " %> <br /></th>
+             <th> &nbsp; </th>
+             </tr>
+            <% else %>
+            <tr>
+             <th>Description: </th>
+             <th><%= allowance.description %> <br/></th>
+             <th><%= number_to_currency allowance.amount, unit: "NPR. " %> <br /></th>
+             <th> &nbsp; </th></tr> <% end %>
+            <% end %>
+         </tr>
+
+        <% if !@payslips.paid? %>
+            <th>&nbsp;</th>
+            <th> <%= link_to "Add new allowance?", new_user_allowance_path %></th>
+            <th> &nbsp; </th>
+            <th> &nbsp; </th>
+        <% end %>
+            
+
+         <tr>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+         </tr>
+
+         <tr>
+           <th>Reimbursements</th>
+           <% @payslips.employee.reimbursements.each do |reimbursement| %> 
+              <% if @payslips.employee.reimbursements.count > 1 %>
+                 <tr>
+                 <th>Category: </th>
+                 <th><%= reimbursement.category %> <br/></th>
+                 <th><%= number_to_currency reimbursement.amount, unit: "NPR.  " %> <br /></th>
+                 <th> &nbsp; </th>
+                 </tr>
+              <% else %>
+                <tr>
+                   <th>Category: </th>
+                   <th><%= reimbursement.category %> <br/></th>
+                   <th><%= number_to_currency reimbursement.amount, unit: "NPR. " %> <br /></th>
+                   <th> &nbsp; </th>
+                 </tr> 
+              <% end %>
+            <% end %>
+
+        <% if !@payslips.paid? %>
+            
+            <th> <%= link_to "Add new reimbursement?", new_user_reimbursement_path %> </th>
+            <th> &nbsp; </th>
+            <th> &nbsp; </th>
+         </tr> 
+
+        <% end %>
+           
+
+         <tr>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+         </tr>
+
+          <tr>
+           <th><%= link_to "Withholding tax", withholding_bracket_user_payslip_url %></th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th><%= number_to_currency @withholding_tax, unit: "NPR. " %></th>
+         </tr>
+
+
+         <tr>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+         </tr>
+
+
+         <tr>
+           <th>Adjustments (Less)</th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <% @payslips.employee.nope_adjustments.each do |nope_adjustment| %> 
+            <% if @payslips.employee.nope_adjustments.count > 1 %>
+             <tr>
+             <th>Description: </th>
+             <th><%= nope_adjustment.description %> <br/></th>
+             <th> &nbsp; </th>
+             <th><%= number_to_currency nope_adjustment.amount, unit: "NPR.  " %> <br />
+             </th>
+             </tr>
+            <% else %>
+            <tr>
+             <th>Description: </th>
+             <th><%= nope_adjustment.description %> <br/></th>
+             <th> &nbsp; </th>
+             <th><%= number_to_currency nope_adjustment.amount, unit: "NPR. " %> <br /></th>
+             </tr> <% end %>
+            <% end %>
+         </tr>
+
+        <% if !@payslips.paid? %>
+            <th> &nbsp;</th>
+            <th> <%= link_to "Add new adjustment (less)?", new_user_nope_adjustment_path %></th>
+            <th> &nbsp; </th>
+            <th> &nbsp; </th>
+        <% end %>
+         
+         <tr>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+         </tr>
+
+         <tr>
+           <th>Adjustments (Plus)</th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <% @payslips.employee.dope_adjustments.each do |dope_adjustment| %> 
+            <% if @payslips.employee.dope_adjustments.count > 1 %>
+             <tr>
+             <th>Description: </th>
+             <th><%= dope_adjustment.description %> <br/></th>
+             <th> &nbsp; </th>
+             <th><%= number_to_currency dope_adjustment.amount, unit: "NPR. " %> <br />
+             </th>
+             </tr>
+            <% else %>
+            <tr>
+             <th>Description: </th>
+             <th><%= dope_adjustment.description %> <br/></th>
+             <th> &nbsp; </th>
+             <th><%= number_to_currency dope_adjustment.amount, unit: "NPR.  " %> <br /></th>
+             </tr> <% end %>
+            <% end %>
+         </tr>
+
+         <% if !@payslips.paid? %>
+            <th> &nbsp;</th>
+            <th> <%= link_to "Add new adjustment (plus)?", new_user_dope_adjustment_path %> </th>
+            <th> &nbsp; </th>
+            <th> &nbsp; </th>
+         <% end %>
+
+         <tr>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+         </tr>
+
+         <tr class="Final">
+           <th >Final</th>
+           <th> &nbsp; </th>
+           <th> &nbsp; </th>
+           <th> <%= number_to_currency payslip.monthly_final_pay, unit: "PHP " %> </th>
+         </tr>
+
+        
+
+         
+       </thead>
+        
+      </table>
+      
+    </div>
+    
+  </div>

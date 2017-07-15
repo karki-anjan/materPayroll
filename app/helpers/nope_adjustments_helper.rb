@@ -1,0 +1,2 @@
+module NopeAdjustmentsHelper
+end

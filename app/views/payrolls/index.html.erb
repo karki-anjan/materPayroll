@@ -1,0 +1,24 @@
+<h1> Payrolls </h1>
+
+<div class="col-md-8 col-md-offset-5">
+	<%= link_to "Create a new Payroll?", new_payroll_path, class: "btn btn-primary" %>
+
+ 
+</div>
+
+
+<div class= 'table_payroll'>
+  <% if @payrolls.any? %>
+	<%= render @payrolls %>
+  <% else %>
+  
+  <% end %>
+
+
+</div>
+
+
+<!-- params : {user_id, {period: {periodA, periodB}}}
+
+params[:user_id]
+params[:period][:periodA] -->

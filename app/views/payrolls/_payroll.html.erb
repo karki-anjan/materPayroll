@@ -1,0 +1,16 @@
+
+<h3>Payroll <%= link_to payroll.id, payroll %> &nbsp;&nbsp;: &nbsp;&nbsp;<b><%= payroll.start_period %></b> &nbsp;&nbsp; to &nbsp;&nbsp;<b><%= payroll.end_period %></b>
+
+<h5>
+
+<% if logged_in? && current_user.admin? %>
+      
+        <%= link_to "Delete", payroll_path(id: payroll.id), method: :delete,
+                                      data: { confirm: "Delete payroll?" } %>
+
+<% end %> 
+</h5>
+
+</h3> 
+
+

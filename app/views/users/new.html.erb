@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body background="assets/addemployeebg.jpg">
+    <% provide(:title, 'Sign up') %>
+    <% if logged_in? && current_user.admin? %>
+
+
+        <%= form_for(@user, url: signup_path) do |f| %>
+         
+          <%= render 'shared/error_messages' %>
+
+          <div class="addemployee" style="width:600px; margin: 0px auto;">
+          <h1 style="margin: 0px auto; text-align: center; margin-bottom: 20px;"></h1>
+      <div class="col-md-6">
+          <%= f.label :username %>
+          <%= f.text_field :username, class: 'form-control' %>
+          <br>
+
+          <%= f.label :password %>
+          <%= f.password_field :password, class: 'form-control' %>
+          <br>
+
+          <%= f.label :password_confirmation, "Password Confirmation" %>
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+          <br>
+
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+          <br>
+          <%= f.label :address %>
+          <%= f.text_field :address, class: 'form-control' %>
+          <br>
+
+          <%= f.label "Birthday:" %>
+          <br>  
+          <%= f.date_select :birthday, :order => [:day, :month, :year], :start_year => 1900, :end_year => Time.now.year - 15, class: 'form-control' %>
+          <br> <br>
+
+          <%= f.label "Date Hired:" %>  
+          <br>
+          <%= f.date_select :date_hired, :order => [:day, :month, :year], :start_year => 1900, :end_year => Time.now.year, class: 'form-control' %>
+          <br> <br>
+
+        </div>
+        <div class="col-md-6">
+
+          <%= f.label :job, "Department:" %>
+          <%= f.text_field :job, class: 'form-control' %>
+          <br>
+
+           <%= f.label :position, "position:" %>
+          <%= f.text_field :position, class: 'form-control' %>
+          <br>
+
+          <%= f.label :status%>
+          <%= select(:user, :status, [['Trainee', "Trainee"], ['Regular', "Regular"]], class: 'ABC')%>
+          <br><br>
+
+          <%= f.label :contact_no, "Contact Number" %>
+          <%= f.text_field :contact_no, class: 'form-control' %>
+          <br>
+
+          <%= f.label :account_no, "Account Number" %>
+          <%= f.text_field :account_no, class: 'form-control' %>
+          <br>
+
+          <%= f.label :bank, "Bank" %>
+          <%= f.text_field :bank, class: 'form-control' %>
+          <br>
+
+          <%= f.label :base_salary, "Base Salary" %>
+          <%= f.text_field :base_salary, class: 'form-control' %>
+          <br>
+            
+      </div> 
+
+          <div class="row" style="margin: 0px auto; text-align: center;">
+            <div class="col-md-12">
+             <%= f.file_field :profileimg, class: 'filestyle',  
+             :'data-classButton' => "btn btn-primary btn-block",
+             :'data-input' => 'false', classIcon:  'icon-plus', 
+             :'data-buttonText' => 'upload profile image'  %> 
+
+            </div>
+          </div>
+
+         <div class="row" style="margin: 0px auto; text-align: center;">
+          <div class="col-md-12">
+            <%= f.label "Admin?", class: 'admin' %>
+            <%= f.check_box :admin, class: 'check_box_admin' %>
+            <%= f.submit "Create my account", class: "btn btn-primary btn-block" %>
+          </div>
+        </div>
+        <% end %>
+
+        <div class="row" style="margin: 0px auto; text-align: center;">
+          <div class="col-md-12">
+          <br>
+                    <%= link_to "Create users from the users.csv file?", 
+                    users_from_file_path, :method => :create_csv, data: { confirm: "Create Users?" }, class: "btn btn-primary btn-block" %>
+          </div>
+        </div>
+    </div>
+    <% end %>
+
+  </body>
+</html>
+
+

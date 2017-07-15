@@ -1,0 +1,31 @@
+<li id="nope_adjustment-<%= nope_adjustment.id %>">
+  
+  <span class="user"><%= link_to nope_adjustment.user.name, nope_adjustment.user %></span>
+  <span class="description"><h4>Description:</h4><%= nope_adjustment.description %></span>
+  <span class="amount"><h4>Amount:</h4>₱<%= nope_adjustment.amount %></span>
+
+
+    <% if current_user?(nope_adjustment.user) || logged_in? && current_user.admin? %>
+     <br>
+      <%= link_to "Add", new_user_nope_adjustment_path(id: nope_adjustment.id,nope_adjustment: nope_adjustment), data: { confirm: "Add new +Adjustment?" } %>
+
+       <% if logged_in? && current_user.admin? %>
+        |
+        <%= link_to "Edit", edit_user_nope_adjustment_path(id: nope_adjustment.id, nope_adjustment: nope_adjustment), data: { confirm: "Edit Adjustments?" } %>
+        | 
+        <%= link_to "Delete", user_nope_adjustment_path(id: nope_adjustment.id, nope_adjustment: nope_adjustment), method: :delete,
+                                      data: { confirm: "Delete Adjustments" } %>
+       <% end %>
+
+    <% end %>
+
+  <span class="timestamp">
+    Posted  <%= time_ago_in_words(nope_adjustment.created_at) %> ago.
+
+
+  </span>
+  
+
+
+
+</li>

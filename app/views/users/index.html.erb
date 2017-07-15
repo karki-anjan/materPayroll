@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body style="background-image: url(/assets/listimgbg.jpg);">
+      <% provide(:title, 'Employees') %>
+  
+
+
+  <div class="search_bar">
+
+  <%= form_tag(users_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "place employee name here to search" %>
+  <%= submit_tag "Search" %>
+  <% end %>
+
+  </div>
+
+  <%= will_paginate %>
+  <div class="users col-md-12" style="margin: 0px auto; text-align: center;">
+    <ul>
+      <% @users.each do |user| %>
+        <li class="users col-md-3">
+        
+          <%= image_tag user.profileimg_url, size:100, class:'proimg' %>
+          <br>
+          
+          <%= link_to user.name, user %>
+          <% if current_user.admin? && !current_user?(user) %>
+        | <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %>
+          <% end %>
+        </li>
+      <% end %>
+
+    </ul>
+  </div>
+
+  <%= will_paginate %>
+</div>
+</body>
+<style type="text/css">
+  button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    display: none;
+}
+
+custom.self-c08…ss?body=1:9463
+
+</style>
+</html>
+

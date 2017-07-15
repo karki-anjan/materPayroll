@@ -1,0 +1,35 @@
+<% provide(:title, @user.username) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= image_tag @user.profileimg_url, size:100, class: 'proimg' %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+
+
+
+    <div class="col-md-8" style="margin-top: 30px;">
+    
+            
+            <h1> Allowances </h1>
+            <h3><%= link_to "+Add new allowance?", new_user_allowance_path %></h3>
+            <% if @user.allowances.any? || @user.admin? %>
+            
+            <ol class="allowances">
+            <%= render @allowances %>
+            </ol>
+            <%= will_paginate @allowances %>
+            <% else %>
+            
+            
+            <% end %>
+
+
+    </div>
+
+    
+</div>
+
